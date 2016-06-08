@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<HTML>
+	<head>	
+		<style>
+		.chart div {
+		  font: 10px sans-serif;
+		  background-color: steelblue;
+		  text-align: right;
+		  padding: 3px;
+		  margin: 1px;
+		  color: white;
+		}
+		</style>
+	</head>
+
+
+<body>
+	<div class="chart">
+	</div>
+</body>
+	<script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+	<script>
+		var data = [4,8,15,16,23,142];
+		var x = d3.scale.linear()
+			.domain([0, d3.max(data)])
+			.range([0, 420]);
+
+		// select chart container using class selector
+		var chart = d3.select(".chart");
+		// define selection to which we will join data
+		var bar = chart.selectAll("div");
+		// join the data to the selection (no visuals yet)
+		var barUpdate = bar.data(data);
+		// instantiate visual elements by appending to the 'enter' selection
+		// each data point gets a div
+		var barEnter = barUpdate.enter().append("div");
+		// set styles of each bar, using calculation of associated data value
+		barEnter.style("width", function(d) { console.log("Width for " + d + " => " + x(d)); return x(d) + "px"; });
+		barEnter.text(function(d) { return d; });
+
+
+	</script>
+</HTML>
